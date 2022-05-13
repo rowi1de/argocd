@@ -1,5 +1,5 @@
 # RabbitMQ
-- We use RabbitMQ on k8s for canary (currently)
+- We use RabbitMQ on k8s for dev (currently)
 
 ## Operator
 - [bitnami/rabbitmq-cluster-operator](https://artifacthub.io/packages/helm/bitnami/rabbitmq-cluster-operator)
@@ -12,15 +12,15 @@
 ## Cluster
 - See [cluster-operator/examples](https://github.com/rabbitmq/cluster-operator/tree/main/docs/examples)
 ```shell
-kubectl get rabbitmqclusters.rabbitmq.com --namespace canary
+kubectl get rabbitmqclusters.rabbitmq.com --namespace dev
 ```
 
 ### Admin UI
 - [RabbitMQ Admin UI](https://rabbitmq-admin.robert-wiesner.de) with [Credentials](https://start.1password.com/open/i?a=YNPNX4CAYBDGNKT55YJ5HQ2Z24&v=wzb5qr74gidvj7h6h5bples3e4&i=hep3i7o6j5bdjfegglju4mptjq&h=reev.1password.eu)
 - Use the following (or lens) to get the initial credentials after deploy:
 ```shell
-username="$(kubectl -n canary get secret rabbitmq-cluster-default-user    -o jsonpath='{.data.username}' | base64 --decode)"
+username="$(kubectl -n dev get secret rabbitmq-cluster-default-user    -o jsonpath='{.data.username}' | base64 --decode)"
 echo "username: $username"
-password="$(kubectl -n canary get secret rabbitmq-cluster-default-user    -o jsonpath='{.data.password}' | base64 --decode)"
+password="$(kubectl -n dev get secret rabbitmq-cluster-default-user    -o jsonpath='{.data.password}' | base64 --decode)"
 echo "password: $password"
 ```

@@ -1,10 +1,10 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: rabbitmq-cluster-canary
+  name: rabbitmq-cluster
 spec:
   destination:
-    namespace: canary
+    namespace: dev
     server: 'https://kubernetes.default.svc'
   source:
     repoURL:  https://github.com/rowi1de/argocd
