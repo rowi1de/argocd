@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: traefik
+  namespace: argo-cd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io # cascade on delete
+spec:
+  project: traefik
+  source:
+    repoURL: 'https://helm.traefik.io/traefik'
+    chart: traefik
+    # https://github.com/traefik/traefik-helm-chart/blob/master/traefik/Chart.yaml
+    targetRevision:  10.3.4 # = traefik 2.5.1
+    helm:
+      values: |
+        ingressRoute:
+          dashboard:
+            enabled: true
+        pilot:
+          token: "f54db236-2773-4c08-b114-86bf8e0079db"
+        providers:
+          kubernetesCRD:
+            enabled: true
+            allowCrossNamespace: true
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: traefik
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
