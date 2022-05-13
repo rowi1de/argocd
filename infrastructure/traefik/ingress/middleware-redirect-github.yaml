@@ -1,0 +1,10 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-github
+  namespace: traefik
+spec:
+  redirectRegex:
+    regex: .*
+    replacement: https://github.com/rowi1de/
+    permanent: true

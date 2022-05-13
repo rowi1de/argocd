@@ -1,0 +1,35 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: argocd-server-ingress
+  namespace: traefik
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+spec:
+  entryPoints:
+    - web
+  #    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`argocd.k8s.robert-wiesner.de`) && !PathPrefix(`/api/`)
+      priority: 10
+      services:
+        - name: argo-cd-argocd-server
+          port: 80
+          namespace: argo-cd
+          kind: Service
+      middlewares:
+        - name: basic-auth
+          namespace: traefik
+    - kind: Rule
+      match: Host(`argocd.k8s.robert-wiesner.de`) && Headers(`Content-Type`, `application/grpc`)
+      priority: 11
+      services:
+        - name: argo-cd-argocd-server
+          port: 80
+          scheme: h2c
+          namespace: argo-cd
+          kind: Service
+      middlewares:
+        - name: basic-auth
+          namespace: traefik

@@ -1,0 +1,20 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: vault-ui-ingress
+  namespace: traefik
+spec:
+  entryPoints:
+    - web
+#    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`vault.k8s.robert-wiesner.de``)
+      priority: 10
+      services:
+        - name: vault-ui
+          port: 8200
+          namespace: vault
+      middlewares:
+        - name: basic-auth
+          namespace: traefik
