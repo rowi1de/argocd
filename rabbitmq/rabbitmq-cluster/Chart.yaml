@@ -1,0 +1,12 @@
+apiVersion: v2
+name: rabbitmq-cluster
+description: RabbitMQ Cluster Chart
+
+type: application
+version: 0.1.0
+appVersion: "0.0.1"
+
+dependencies:
+  - name: utils
+    repository: "file://../../helm/library/utils"
+    version: 0.0.3

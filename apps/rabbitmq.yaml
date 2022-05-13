@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rabbitmq-app
+  namespace: argo-cd
+spec:
+  project: rabbitmq
+  source:
+    repoURL: https://github.com/rowi1de/argocd
+    targetRevision:  HEAD
+    path: rabbitmq
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argo-cd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

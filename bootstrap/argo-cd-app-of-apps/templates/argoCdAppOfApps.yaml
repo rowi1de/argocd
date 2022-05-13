@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: app-of-apps
+  namespace: {{.Release.Namespace }}
+spec:
+  project: argo-cd
+  source:
+    repoURL: 'https://github.com/rowi1de/argocd'
+    path: bootstrap/argo-cd-app-of-apps
+    targetRevision: HEAD
+    helm:
+      parameters:
+        - name: secret
+          value: "<ignored>" # only set initially
+      releaseName: app-of-apps
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: {{ .Release.Namespace | squote }}
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+  # don't overwrite
+  ignoreDifferences:
+    - kind: Secret
+      jsonPointers:
+        - /data/password

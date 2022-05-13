@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argo-cd
+  namespace: {{.Release.Namespace }}
+spec:
+  project: argo-cd
+  source:
+    repoURL: 'https://github.com/rowi1de/argocd'
+    path: bootstrap/argo-cd
+    targetRevision: HEAD
+    helm:
+      releaseName: argo-cd
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: {{.Release.Namespace }}
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
+  ignoreDifferences:
+    - kind: CustomResourceDefinition
+      name: applications.argoproj.io

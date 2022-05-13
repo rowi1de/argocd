@@ -1,0 +1,7 @@
+apiVersion: v2
+name: utils
+description: A Helm chart for utils
+
+type: library
+version: 0.0.3 # Important: Replace the version in all charts that use this library, currently we can only have one version at a time
+

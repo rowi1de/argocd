@@ -1,0 +1,27 @@
+Thank you for installing {{ .Chart.Name }} 🐰.
+
+Your release is named {{ .Release.Name }} in namespace {{ .Release.Namespace }}
+
+To learn more about the release, try:
+
+  $ helm status {{ .Release.Name }} -n {{ .Release.Namespace }}
+  $ helm get all {{ .Release.Name }} -n {{ .Release.Namespace }}
+
+{{ if .Values.adminUi.ingress.enabled }}
+You can access the RabbitMQ Admin UI on https://{{.Values.adminUi.ingress.host.name}}
+{{- if .Release.IsInstall }}
+Use the following script to get the initial credentials (don't forget to put to 1Password ;))
+
+  $ username="$(kubectl -n {{ .Release.Namespace }} get secret {{ .Release.Name }}-default-user    -o jsonpath='{.data.username}' | base64 --decode)"
+  $ echo "username: $username"
+  $ password="$(kubectl -n {{ .Release.Namespace }} get secret {{ .Release.Name }}-default-user    -o jsonpath='{.data.password}' | base64 --decode)"
+  $ echo "password: $password"
+
+{{- end -}}
+{{- else -}}
+Set adminUi.ingress.enabled=true to enable RabbitMQ Admin UI
+{{- end }}
+
+Use the following commands to get the DNS Name:
+  $ kubectl apply -f https://k8s.io/examples/admin/dns/dnsutils.yaml
+  $ kubectl exec -i -t dnsutils -- nslookup  {{ .Release.Name }}.{{ .Release.Namespace }}

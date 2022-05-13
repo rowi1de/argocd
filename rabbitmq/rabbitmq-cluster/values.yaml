@@ -1,0 +1,7 @@
+# RabbitMQ Admin UI
+adminUi:
+  ingress:
+    enabled: true
+    host:
+     name: rabbitmq-admin.robert-wiesner.de
+     port: 15672

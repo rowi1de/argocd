@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: infrastructure
+  namespace: argo-cd
+spec:
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  destinations:
+    - namespace: 'argo-cd'
+      server: '*'
+    - namespace: 'sonarqube'
+      server: '*'
+  sourceRepos:
+    - https://github.com/rowi1de/argocd
+    - https://charts.bitnami.com/bitnami

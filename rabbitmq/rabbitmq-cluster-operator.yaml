@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rabbitmq-cluster-operator
+spec:
+  destination:
+    namespace: rabbitmq
+    server: 'https://kubernetes.default.svc'
+  source:
+    repoURL: https://charts.bitnami.com/bitnami # https://artifacthub.io/packages/helm/bitnami/rabbitmq-cluster-operator
+    targetRevision: "2.6.1"
+    chart: rabbitmq-cluster-operator
+  project: rabbitmq
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
+    automated:
+      prune: true
+      selfHeal: true
