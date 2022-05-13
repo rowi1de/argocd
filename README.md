@@ -21,15 +21,12 @@ Cluster Repository for GitOps Deploy of Infrastructure
 
 ### Services App [![App Status](https://argocd.robert-wiesner.de/api/badge?name=services&revision=true)](https://argocd.robert-wiesner.de/applications/services)
 - [See /services](./services)
-- ocpi-service-app-canary [![App Status](https://argocd.robert-wiesner.de/api/badge?name=ocpi-service-app-canary&revision=true)](https://argocd.robert-wiesner.de/applications/ocpi-service-app-canary)
-- ocpi-service-ingress-canary [![App Status](https://argocd.robert-wiesner.de/api/badge?name=ocpi-service-ingress-canary&revision=true)](https://argocd.robert-wiesner.de/applications/ocpi-service-ingress-canary)
-
 
 ### RabbitMQ App [![App Status](https://argocd.robert-wiesner.de/api/badge?name=rabbitmq-app&revision=true)](https://argocd.robert-wiesner.de/applications/rabbitmq-app)
 - [See /rabbitmq](./rabbitmq)
 - Deploying rabbitmq-cluster-operator + rabbitmq-cluster
 - rabbitmq-cluster-operator [![App Status](https://argocd.robert-wiesner.de/api/badge?name=rabbitmq-cluster-operator&revision=true)](https://argocd.robert-wiesner.de/applications/rabbitmq-cluster-operator)
-- rabbitmq-cluster-canary [![App Status](https://argocd.robert-wiesner.de/api/badge?name=rabbitmq-cluster-canary&revision=true)](https://argocd.robert-wiesner.de/applications/rabbitmq-cluster-canary)
+- rabbitmq-cluster [![App Status](https://argocd.robert-wiesner.de/api/badge?name=rabbitmq-cluster&revision=true)](https://argocd.robert-wiesner.de/applications/rabbitmq-cluster)
 
 
 ## Additional Config

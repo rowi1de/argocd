@@ -12,7 +12,7 @@ spec:
       server: '*'
     - namespace: 'rabbitmq'
       server: '*'
-    - namespace: 'canary'
+    - namespace: 'dev'
       server: '*'
   sourceRepos:
     - https://github.com/rowi1de/argocd
