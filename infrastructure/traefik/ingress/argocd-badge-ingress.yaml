@@ -1,0 +1,18 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: argocd-badge-ingress
+  namespace: traefik
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`argocd.k8s.robert-wiesner.de`) && PathPrefix(`/api/`)
+      priority: 1000
+      services:
+        - name: argo-cd-argocd-server
+          port: 80
+          namespace: argo-cd
+          kind: Service
