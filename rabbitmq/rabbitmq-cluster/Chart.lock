@@ -1,6 +1,0 @@
-dependencies:
-- name: utils
-  repository: file://../../helm/library/utils
-  version: 0.0.3
-digest: sha256:d56ca12dd46ae326044c741685ccd09531059e18160f71b7c391179054d0846d
-generated: "2022-05-13T17:15:02.126471+02:00"
