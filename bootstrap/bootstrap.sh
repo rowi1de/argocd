@@ -5,10 +5,20 @@ if [ "$argoByArgo" = "Healthy" ]
 then
      printf "argo-cd already managed by argo-cd, skipping bootstrap."
 else
-    helm repo add argo https://argoproj.github.io/argo-helm
+
     cd argo-cd || exit
-    helm dependency build
-    helm upgrade --install argo-cd . --namespace argo-cd --create-namespace --atomic --wait
+    helm repo add argo https://argoproj.github.io/argo-helm
+    helm dependency update && helpm dependency build
+     az aks command invoke \
+         --resource-group $AZURE_RESOURCE_GROUP  \
+         --name $AZURE_CLUSTER_NAME \
+         --command "helm repo add argo https://argoproj.github.io/argo-helm"
+
+   az aks command invoke \
+     --resource-group $AZURE_RESOURCE_GROUP  \
+     --name $AZURE_CLUSTER_NAME \
+     --command "helm upgrade --install argo-cd . --namespace argo-cd --create-namespace --atomic --wait" \
+     --file .
     cd "../"
 fi
 
@@ -25,5 +35,9 @@ else
     fi
 
     cd argo-cd-app-of-apps || exit
-    helm upgrade --install app-of-apps . --namespace argo-cd --create-namespace --atomic --wait --set secret="$GITHUB_TOKEN"
+    az aks command invoke \
+         --resource-group $AZURE_RESOURCE_GROUP  \
+         --name $AZURE_CLUSTER_NAME \
+         --command "helm upgrade --install app-of-apps . --namespace argo-cd --create-namespace --atomic --wait --set secret=$GITHUB_TOKEN" \
+         --file .
 fi

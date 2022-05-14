@@ -1,6 +1,15 @@
 # Cluster
 Cluster Repository for GitOps Deploy of Infrastructure 
 
+## Azure AKS
+Using a private cluster on Azure AKS
+Export the following
+```shell
+export AZURE_SUBSCRIPTION="xx-xx-xx-xx-xx"
+export AZURE_RESOURCE_GROUP="my-resource-group"
+export AZURE_CLUSTER_NAME="my-cluster-name"
+```
+
 ## Bootstrap
 - Execute [bootstrap.sh](bootstrap/bootstrap.sh) to install or update argocd
 - After initial Bootstrap app-of-apps will be synced by argocd as well [![App Status](https://argocd.robert-wiesner.de/api/badge?name=app-of-apps&revision=true)](https://argocd.robert-wiesner.de/applications/app-of-apps)

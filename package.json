@@ -1,0 +1,11 @@
+{
+  "name": "argocd",
+  "private": true,
+  "scripts": {
+    "postinstall": "husky install"
+  },
+  "devDependencies": {
+    "husky": "7.0.4",
+    "yaml-lint": "^1.7.0"
+  }
+}
