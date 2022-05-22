@@ -53,7 +53,7 @@ else
         --from-literal=url=$REPO \
         --from-literal=password=$GITHUB_TOKEN \
         -o yaml | kubeseal --controller-namespace infrastructure --controller-name sealed-secrets -o yaml \
-        templates/SealedSecret.yaml >!
+        >! templates/SealedSecret.yaml
     echo "Please git commit and push new secret ..."
     kubectl delete secret temp-repo-secret -n argocd
     argocd app sync app-of-apps
