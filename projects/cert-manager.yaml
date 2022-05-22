@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: cert-manager
+  namespace: argocd
+spec:
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  destinations:
+    - namespace: 'cert-manager'
+      server: '*'
+    - namespace: 'traefik'
+      server: '*'
+    - namespace: 'kube-system'
+      server: '*'
+  sourceRepos:
+    - https://github.com/rowi1de/argocd
+    - https://charts.jetstack.io

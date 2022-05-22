@@ -1,0 +1,93 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: traefik
+  name: traefik-sso
+  labels:
+    app: traefik-sso
+spec:
+  template:
+    metadata:
+      labels:
+        name: traefik-sso
+        app: traefik-sso
+    spec:
+      containers:
+        - name: traefik-sso
+          image: thomseddon/traefik-forward-auth:2
+          imagePullPolicy: Always
+          env:
+            - name: PROVIDERS_GOOGLE_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: traefik-sso
+                  key: clientid
+            - name: PROVIDERS_GOOGLE_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: traefik-sso
+                  key: clientsecret
+            - name: SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: traefik-sso
+                  key: secret
+            - name: COOKIE_DOMAIN
+              value: example.com
+            - name: AUTH_HOST
+              value: auth.robert-wiesner.de
+            - name: INSECURE_COOKIE
+              value: "false"
+            - name: URL_PATH
+              value: /_oauth
+            - name: WHITELIST
+              value: business@robert-wiesner.de
+            - name: LOG_LEVEL
+              value: debug
+          ports:
+            - containerPort: 4181
+  selector:
+    matchLabels:
+      app: traefik-sso
+---
+kind: Service
+apiVersion: v1
+metadata:
+  namespace: traefik
+  name: traefik-sso
+spec:
+  selector:
+    app: traefik-sso
+  ports:
+    - protocol: TCP
+      port: 4181
+      targetPort: 4181
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  namespace: traefik
+  name: traefik-sso
+spec:
+  forwardAuth:
+    address: http://traefik-sso:4181
+    authResponseHeaders:
+      - "X-Forwarded-User"
+    trustForwardHeader: true
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  namespace: traefik
+  name: traefik-sso
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`auth.robert-wiesner.de`)
+      kind: Rule
+      services:
+        - name: traefik-sso
+          port: 4181
+      middlewares:
+        - name: traefik-traefik-sso@kubernetescrd

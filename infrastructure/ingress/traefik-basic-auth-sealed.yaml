@@ -1,0 +1,20 @@
+apiVersion: bitnami.com/v1alpha1
+kind: SealedSecret
+metadata:
+  name: traefik-basic-auth
+  namespace: traefik
+spec:
+  encryptedData:
+    users: AgAPWlUQVQQmxNZ8jdAjE2mW8dvNObdjAODMUzk+6CmsCO422a+oLGH9kOrDf6Rf53Qk6lHW2WAyWbzFHvEVeiLa/0LlBnZS+RxE35FdspnSNxsNE+QPfFFi6WrI+CEiFdM9QqZ8X5Amwu+tOCMVSoU7FymVDGtdhWGulanqO+8lRCSjL+8HFtlfvhkmgD1pqXmHUF5cc//0/oo5wpM4EaeXJB6aC71tJ6Lu4sTETTLLYy9r8NyzCX+rEf57zlUuqHzIKmtOo8lR9kWqDpgEtorPOWb02t8+LqQdXvyb8Eiw00L9z1WhX6bLacSOd0PtMeB9UtoebmzBacr9A6/eyCXh+y7k2GS+ICnUxog4CuSDu7fGNsQjxkybxd2fT36pZy7hLSuIfJdqYiwuN7APVYYdGTYTNNlsgvacUOsM4TIa9NdSChlmu/sBjm9Q6nQS5j5viC+s/jyxZE0FJD1pYqUtpReNJW5rDvPFnEu1KxmNFhm08+xQbniNVAi3hHCR11g5VJSrEoCbjqTZUnPdaE0Q6fMcUtdw/n/jjBOAseO2Byz6xgvQd7Xz04gkDSTrsrNNatQQSbR6T+G44yhyMT7H8RF10/U4dty8dkMJpapgxDwzwvYbJ4LkdgpIwDDbDRPAcIM0hFv/CQhPenxME16cIvGwCuZ7hHzZb7y+aEpOTZ1z8vqC4unz9TLNh5iJwFr3n7U7hhheVuxzUBUxCxjFy/D46jMSHSDwHHTu059Eax0+BNRdK3XcIOizOQ==
+  template:
+    data: null
+    metadata:
+      annotations:
+        sealedsecrets.bitnami.com/managed: "true"
+      creationTimestamp: null
+      labels:
+        argocd.argoproj.io/instance: infrastructure
+      name: traefik-basic-auth
+      namespace: traefik
+    type: Opaque
+

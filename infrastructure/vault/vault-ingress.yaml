@@ -1,0 +1,22 @@
+#apiVersion: traefik.containo.us/v1alpha1
+#kind: IngressRoute
+#metadata:
+#  name: vault-ui-ingress
+#  namespace: traefik
+#  annotations:
+#    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+#    argocd.argoproj.io/sync-wave: "1"
+#spec:
+#  entryPoints:
+#    - web
+##    - websecure
+#  routes:
+#    - kind: Rule
+#      match: Host(`vault.k8s.robert-wiesner.de`)
+#      priority: 10
+#      services:
+#        - name: vault-ui
+#          port: 8200
+#          namespace: vault
+#      middlewares:
+#        - name: traefik-sso

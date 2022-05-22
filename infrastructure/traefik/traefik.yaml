@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: traefik
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io # cascade on delete
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  project: traefik
+  source:
+    repoURL: 'https://helm.traefik.io/traefik'
+    chart: traefik
+    # https://github.com/traefik/traefik-helm-chart/blob/master/traefik/Chart.yaml
+    targetRevision:  10.19.5 # = traefik 2.6.6
+    helm:
+      values: |
+        ingressRoute:
+          dashboard:
+            enabled: false # kubectl port-forward $(kubectl get pods --selector "app.kubernetes.io/name=traefik" --output=name -n traefik) 9000:9000 -n traefik
+        providers:
+          kubernetesCRD:
+            enabled: true
+            allowCrossNamespace: true
+        additionalArguments:
+        - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
+        - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: traefik
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

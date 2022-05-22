@@ -1,0 +1,9 @@
+/.idea/
+/node_modules/
+/bootstrap/argocd/charts/**
+/bootstrap/argocd/charts/
+/gke/terraform/.terraform.lock.hcl
+/gke/terraform/.terraform/
+/gke/terraform/.terraform.tfstate.lock.info
+/gke/terraform/terraform.tfstate
+/gke/terraform/terraform.tfstate.backup

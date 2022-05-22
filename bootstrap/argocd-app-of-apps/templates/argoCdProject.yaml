@@ -1,0 +1,15 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: argocd
+  namespace: {{.Release.Namespace }}
+spec:
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  destinations:
+    - namespace: {{.Release.Namespace | squote }}
+      server: '*'
+  sourceRepos:
+    - {{.Values.repo }}
+    - https://argoproj.github.io/argo-helm

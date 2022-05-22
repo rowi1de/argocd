@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: infrastructure
+  namespace: argocd
+spec:
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  destinations:
+    - namespace: 'argocd'
+      server: '*'
+    - namespace: 'traefik'
+      server: '*'
+    - namespace: 'cert-manager'
+      server: '*'
+    - namespace: 'infrastructure'
+      server: '*'
+  sourceRepos:
+    - https://github.com/rowi1de/argocd
+    - https://charts.bitnami.com/bitnami
+    - https://charts.jetstack.io
+    - https://emberstack.github.io/helm-charts
+    - https://bitnami-labs.github.io/sealed-secrets

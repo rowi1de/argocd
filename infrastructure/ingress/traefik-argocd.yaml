@@ -1,0 +1,37 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: argocd-server
+  namespace: argocd
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`argocd.robert-wiesner.de`)
+      priority: 10
+      services:
+        - name: argocd-server
+          namespace: argocd
+          port: 80
+      middlewares:
+        - name: traefik-traefik-sso@kubernetescrd
+    - kind: Rule
+      match: Host(`argocd.robert-wiesner.de`) && Headers(`Content-Type`, `application/grpc`)
+      priority: 11
+      services:
+        - name: argocd-server
+          namespace: argocd
+          port: 80
+          scheme: h2c
+      middlewares:
+       - name: traefik-traefik-sso@kubernetescrd
+    - kind: Rule
+      match: Host(`argocd.robert-wiesner.de`) && (PathPrefix(`/api/badge`))
+      services:
+        - name: argocd-server
+          namespace: argocd
+          port: 80
+
+  tls:
+    secretName: argocd.robert-wiesner.de

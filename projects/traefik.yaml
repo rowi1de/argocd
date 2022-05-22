@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: traefik
+  namespace: argocd
+spec:
+  clusterResourceWhitelist:
+    - group: '*'
+      kind: '*'
+  destinations:
+    - namespace: 'argocd'
+      server: '*'
+    - namespace: 'traefik'
+      server: '*'
+  sourceRepos:
+    -  https://github.com/rowi1de/argocd
+    -  https://helm.traefik.io/traefik

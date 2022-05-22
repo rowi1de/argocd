@@ -1,0 +1,18 @@
+Thank you for installing {{ .Chart.Name }}.
+
+Your release is named {{ .Release.Name }} in namespace {{ .Release.Namespace }}
+
+To learn more about the release, try:
+
+  $ helm status {{ .Release.Name }} -n {{ .Release.Namespace }}
+  $ helm get all {{ .Release.Name }} -n {{ .Release.Namespace }}
+
+To open the UI:
+    $ kubectl port-forward svc/argocd-server -n {{ .Release.Namespace }} 8080:443
+
+To get the initial Admin Password
+  $ kubectl -n  {{ .Release.Namespace }} get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d | pbcopy
+
+
+To use the CLI
+  $ argocd login localhost:8080 --username admin

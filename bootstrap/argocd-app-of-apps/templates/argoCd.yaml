@@ -1,0 +1,30 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd
+  namespace: {{.Release.Namespace }}
+spec:
+  project: argocd
+  source:
+    repoURL: 'https://argoproj.github.io/argo-helm'
+    targetRevision: 4.6.4
+    chart: argo-cd
+    helm:
+      values: |
+        server:
+          extraArgs:
+            - --insecure
+          config:
+            admin.enabled: "true"
+            statusbadge.enabled: "true"
+            url: {{.Values.domain }}
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+  ignoreDifferences:
+  - kind: CustomResourceDefinition
+    name: applications.argoproj.io
