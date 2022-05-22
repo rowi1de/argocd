@@ -39,7 +39,7 @@ else
         --from-literal=type=git \
         --from-literal=url=$REPO \
         --from-literal=password=$GITHUB_TOKEN
-    helm upgrade --install app-of-apps . --namespace argocd --create-namespace --set domain="$ARGOCD_DOMAIN",repo="$REPO",secret="$GITHUB_TOKEN" --atomic --wait --dry-run
+    helm upgrade --install app-of-apps . --namespace argocd --create-namespace --set domain="$ARGOCD_DOMAIN",repo="$REPO",secret="$GITHUB_TOKEN" --atomic --wait
 
     echo "Tyring to login to argocd ..."
     kubectl port-forward svc/argocd-server -n argocd 8080:443
