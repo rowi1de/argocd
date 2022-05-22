@@ -28,9 +28,15 @@ argo-cd:
           name: vault
           url: https://helm.releases.hashicorp.com
   # https://argocd.readthedocs.io/en/stable/operator-manual/user-management/
+  # https://argo-cd.readthedocs.io/en/stable/operator-manual/user-management/google/
   dex.config: |
     connectors:
-      # GitHub example
-      - type: github
-        id: github
-        name: GitHub
+    - config:
+        issuer: https://accounts.google.com
+        # Reference to key in argo-secret Kubernetes resource
+        clientID: $dex.google.clientId
+        # Reference to key in argo-secret Kubernetes resource
+        clientSecret: $dex.google.clientId
+      type: oidc
+      id: google
+      name: Google

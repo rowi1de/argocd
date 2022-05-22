@@ -54,4 +54,4 @@
 
 # TODOs
 - [ ] Infrastructure is not templated
-- [ ] Google SSO for ArgoCD
+- [X] Google SSO for ArgoCD

@@ -7,3 +7,4 @@
 /gke/terraform/.terraform.tfstate.lock.info
 /gke/terraform/terraform.tfstate
 /gke/terraform/terraform.tfstate.backup
+**/.DS_Store

@@ -15,9 +15,29 @@ spec:
           extraArgs:
             - --insecure
           config:
-            admin.enabled: "true"
+            admin.enabled: "false"
             statusbadge.enabled: "true"
             url: {{.Values.domain }}
+          # https://argocd.readthedocs.io/en/stable/operator-manual/user-management/
+          # https://argo-cd.readthedocs.io/en/stable/operator-manual/user-management/google/
+          dex.config: |
+            connectors:
+            - config:
+                issuer: https://accounts.google.com
+                # Reference to key in argo-secret Kubernetes resource
+                clientID: $dex.google.clientID
+                # Reference to key in argo-secret Kubernetes resource
+                clientSecret: $dex.google.clientSecret
+              type: oidc
+              id: google
+              name: Google
+        # https://argo-cd.readthedocs.io/en/stable/operator-manual/rbac/#rbac-configuration
+          rbacConfig:
+            policy.default: 'role:readonly'
+            policy.csv: |
+             g, business@robert-wiesner.de, role:admin
+            scopes: '[email]'
+
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: argocd
