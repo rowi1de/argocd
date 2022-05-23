@@ -16,6 +16,8 @@ spec:
       server: '*'
     - namespace: 'infrastructure'
       server: '*'
+    - namespace: 'services'
+      server: '*'
   sourceRepos:
     - https://github.com/rowi1de/argocd
     - https://charts.bitnami.com/bitnami
