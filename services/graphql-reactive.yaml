@@ -1,0 +1,13 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: graphql-reactive
+spec:
+  destination:
+    namespace: services
+    server: 'https://kubernetes.default.svc'
+  source:
+    repoURL: ghcr.io/rowi1de/graphql-reactive
+    targetRevision: 0.0.3
+    chart: graphql-reactive
+  project: services
