@@ -34,7 +34,7 @@ spec:
           namespace: argocd
           port: 80
       middlewares:
-        - name: traefik-redirect-to-https@kubernetes
+        - name: traefik-redirect-to-https@kubernetescrd
 
   tls:
     secretName: argocd.robert-wiesner.de
