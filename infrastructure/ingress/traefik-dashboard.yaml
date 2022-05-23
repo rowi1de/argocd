@@ -14,8 +14,14 @@ spec:
         - name: api@internal
           kind: TraefikService
       middlewares:
+        - name: traefik-redirect-to-https@kubernetescrd
         - name: traefik-traefik-sso@kubernetescrd
-        - name: traefik-dashboard@kubernetescrd
+    - match: Host(`traefik.robert-wiesner.de`)
+      kind: Rule
+      services:
+        - name: api@internal
+          kind: TraefikService
+      middlewares:
         - name: traefik-redirect-to-https@kubernetescrd
   tls:
     secretName: traefik.robert-wiesner.de
