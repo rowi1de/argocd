@@ -8,7 +8,7 @@ spec:
     - web
     - websecure
   routes:
-    - match: Host(`traefik.robert-wiesner.de`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
+    - match: Host(`traefik.robert-wiesner.de`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`)) && ! PathPrefix(`/_oauth`)
       kind: Rule
       services:
         - name: api@internal
