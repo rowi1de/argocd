@@ -78,33 +78,11 @@ spec:
       reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: "argocd,traefik"
       reflector.v1.k8s.emberstack.com/reflection-auto-enabled: "true"
       reflector.v1.k8s.emberstack.com/reflection-auto-namespaces: "argocd,traefik"
-
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: robert-wiesner.de
-  namespace: cert-manager
-spec:
-  secretName: robert-wiesner.de
-  issuerRef:
-    name: letsencrypt-prod
-    kind: ClusterIssuer
-  commonName: robert-wiesner.de
-  dnsNames:
-    - robert-wiesner.de
-  secretTemplate:
-    annotations:
-      reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
-      reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: "traefik"
-      reflector.v1.k8s.emberstack.com/reflection-auto-enabled: "true"
-      reflector.v1.k8s.emberstack.com/reflection-auto-namespaces: "traefik"
-
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: graphql-wiesner.de
+  name: graphql.robert-wiesner.de
   namespace: cert-manager
 spec:
   secretName: graphql.robert-wiesner.de
@@ -120,3 +98,24 @@ spec:
       reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: "traefik,services"
       reflector.v1.k8s.emberstack.com/reflection-auto-enabled: "true"
       reflector.v1.k8s.emberstack.com/reflection-auto-namespaces: "traefik,services"
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: robert-wiesner.de
+  namespace: cert-manager
+spec:
+  secretName: robert-wiesner.de
+  issuerRef:
+    name: letsencrypt-stage
+    kind: ClusterIssuer
+  commonName: '*.robert-wiesner.de'
+  dnsNames:
+    - robert-wiesner.de
+    - '*.robert-wiesner.de'
+  secretTemplate:
+    annotations:
+      reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
+      reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: "traefik,services,argocd"
+      reflector.v1.k8s.emberstack.com/reflection-auto-enabled: "true"
+      reflector.v1.k8s.emberstack.com/reflection-auto-namespaces: "traefik,services,argocd"
