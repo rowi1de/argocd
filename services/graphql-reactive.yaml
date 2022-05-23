@@ -8,6 +8,6 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     repoURL: ghcr.io/rowi1de/graphql-reactive
-    targetRevision: 0.0.4
+    targetRevision: 0.0.8
     chart: graphql-reactive
   project: services
