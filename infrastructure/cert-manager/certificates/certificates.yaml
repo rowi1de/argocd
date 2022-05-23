@@ -34,7 +34,7 @@ spec:
       - dns01:
           cloudDNS:
             # The ID of the GCP project
-            project: gke-free-k8
+            project: gke-free-k8s
             # This is the secret used to access the service account
             serviceAccountSecretRef:
               name: clouddns-dns01-solver-svc-acct
