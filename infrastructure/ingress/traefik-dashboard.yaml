@@ -14,6 +14,7 @@ spec:
         - name: api@internal
           kind: TraefikService
       middlewares:
-        - name: traefik-basic-auth@kubernetescrd
+        - name: traefik-traefik-sso@kubernetescrd
+        - name: traefik-redirect-to-https@kubernetescrd
   tls:
     secretName: traefik-robert-wiesner.de

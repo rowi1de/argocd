@@ -23,9 +23,6 @@ spec:
           kubernetesCRD:
             enabled: true
             allowCrossNamespace: true
-        additionalArguments:
-         - "--entrypoints.web.http.middlewares=traefik-redirect-to-https@kubernetescrd"
-
   destination:
     server: https://kubernetes.default.svc
     namespace: traefik

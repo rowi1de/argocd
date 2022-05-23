@@ -25,13 +25,17 @@ spec:
           port: 80
           scheme: h2c
       middlewares:
-       - name: traefik-traefik-sso@kubernetescrd
+        - name: traefik-traefik-sso@kubernetescrd
+        - name: traefik-redirect-to-https@kubernetescrd
     - kind: Rule
       match: Host(`argocd.robert-wiesner.de`) && (PathPrefix(`/api/badge`))
       services:
         - name: argocd-server
           namespace: argocd
           port: 80
+      middlewares:
+        - name: traefik-traefik-sso@kubernetescrd
+        - name: traefik-redirect-to-https@kubernetes
 
   tls:
     secretName: argocd.robert-wiesner.de

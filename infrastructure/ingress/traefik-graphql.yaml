@@ -31,5 +31,6 @@ spec:
           port: 8082
       middlewares:
         - name: traefik-traefik-sso@kubernetescrd
+        - name: traefik-redirect-to-https@kubernetescrd
   tls:
     secretName: graphql.robert-wiesner.de
