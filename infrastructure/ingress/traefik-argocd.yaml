@@ -34,4 +34,4 @@ spec:
           port: 80
 
   tls:
-    secretName: argocd.robert-wiesner.de
+    secretName: robert-wiesner.de

@@ -16,4 +16,4 @@ spec:
       middlewares:
         - name: traefik-basic-auth@kubernetescrd
   tls:
-    secretName: traefik.robert-wiesner.de
+    secretName: robert-wiesner.de
