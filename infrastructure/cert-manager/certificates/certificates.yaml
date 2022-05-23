@@ -109,7 +109,7 @@ spec:
     server: https://acme-v02.api.letsencrypt.org/directory
     email: hello@robert-wiesner.de
     privateKeySecretRef:
-      name: letsencrypt-stage-cloudDns
+      name: letsencrypt-stage-cloud-dns
     solvers:
       # https://cert-manager.io/docs/configuration/acme/dns01/google needed for wildcard
       - dns01:
