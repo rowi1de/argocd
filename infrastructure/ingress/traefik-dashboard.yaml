@@ -8,13 +8,14 @@ spec:
     - web
     - websecure
   routes:
-    - match: Host(`traefik.robert-wiesner.de`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`)) && ! PathPrefix(`/_oauth`)
+    - match: Host(`traefik.robert-wiesner.de`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
       kind: Rule
       services:
         - name: api@internal
           kind: TraefikService
       middlewares:
         - name: traefik-traefik-sso@kubernetescrd
+        - name: traefik-dashboard@kubernetescrd
         - name: traefik-redirect-to-https@kubernetescrd
   tls:
     secretName: traefik.robert-wiesner.de

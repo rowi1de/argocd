@@ -28,3 +28,13 @@ spec:
   redirectScheme:
     scheme: https
     permanent: true
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: dashboard
+  namespace: traefik
+spec:
+  redirectRegex:
+    regex: ^https://traefik.robert-wiesner.de/_oauth\?state.*
+    replacement: https://traefik.robert-wiesner.de/dashboard/#/
