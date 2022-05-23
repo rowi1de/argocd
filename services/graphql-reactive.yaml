@@ -2,12 +2,23 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: graphql-reactive
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io # cascade on delete
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
-  destination:
-    namespace: services
-    server: 'https://kubernetes.default.svc'
   source:
     repoURL: ghcr.io/rowi1de/graphql-reactive
     targetRevision: 0.0.8
     chart: graphql-reactive
   project: services
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: services
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
