@@ -17,7 +17,7 @@ spec:
         - name: traefik-redirect-to-https@kubernetescrd
         - name: traefik-redirect-root@kubernetescrd
   tls:
-    secretName: robert-wiesner.de
+    secretName: wildcard-robert-wiesner.de
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
@@ -39,4 +39,4 @@ spec:
         - name: traefik-redirect-to-https@kubernetescrd
         - name: traefik-redirect-rick-roll@kubernetescrd
   tls:
-    secretName: robert-wiesner.de
+    secretName: wildcard-robert-wiesner.de

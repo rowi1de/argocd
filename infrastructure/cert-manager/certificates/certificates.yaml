@@ -119,3 +119,47 @@ spec:
       reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: "traefik,services"
       reflector.v1.k8s.emberstack.com/reflection-auto-enabled: "true"
       reflector.v1.k8s.emberstack.com/reflection-auto-namespaces: "traefik,services"
+
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-stage-cloud-dns
+  namespace: cert-manager
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: hello@robert-wiesner.de
+    privateKeySecretRef:
+      name: letsencrypt-stage-cloudDns
+    solvers:
+      # https://cert-manager.io/docs/configuration/acme/dns01/google needed for wildcard
+      - dns01:
+          cloudDNS:
+            # The ID of the GCP project
+            project: gke-free-k8s
+            # This is the secret used to access the service account
+            serviceAccountSecretRef:
+              name: clouddns-dns01-solver-svc-acct
+              key: key.json
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wildcard-robert-wiesner.de
+  namespace: cert-manager
+spec:
+  secretName: wildcard-robert-wiesner.de
+  issuerRef:
+    name: letsencrypt-stage-cloud-dns
+    kind: ClusterIssuer
+  commonName: '*.robert-wiesner.de'
+  dnsNames:
+    - robert-wiesner.de
+    - '*.robert-wiesner.de'
+  secretTemplate:
+    annotations:
+      reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
+      reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: "traefik,services"
+      reflector.v1.k8s.emberstack.com/reflection-auto-enabled: "true"
+      reflector.v1.k8s.emberstack.com/reflection-auto-namespaces: "traefik,services"
