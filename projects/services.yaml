@@ -14,4 +14,4 @@ spec:
       server: '*'
   sourceRepos:
     -  https://github.com/rowi1de/argocd
-    -  ghcr.io/rowi1de
+    -  ghcr.io/rowi1de/graphql-reactive
