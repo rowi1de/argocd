@@ -28,7 +28,7 @@ spec:
       services:
         - name: graphql-reactive
           namespace: services
-          port: 80
+          port: 8082
       middlewares:
         - name: traefik-traefik-sso@kubernetescrd
   tls:
