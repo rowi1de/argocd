@@ -21,7 +21,7 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: letsencrypt-stage-cloudDns
+  name: letsencrypt-stage-cloud-dns
   namespace: cert-manager
 spec:
   acme:
