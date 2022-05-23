@@ -10,7 +10,7 @@ metadata:
 spec:
   source:
     repoURL: ghcr.io/rowi1de/graphql-reactive
-    targetRevision: 0.0.13
+    targetRevision: 0.0.14
     chart: graphql-reactive
   project: services
   destination:
@@ -22,3 +22,40 @@ spec:
       selfHeal: true
     syncOptions:
       - CreateNamespace=true
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: graphql-reactive
+  namespace: services
+  labels:
+    type: graphql-reactive
+spec:
+  selector:
+    type: graphql-reactive
+  ports:
+    - name: http
+      port: 8082
+      protocol: TCP
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: graphql-reactive
+  namespace: services
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`graphql.robert-wiesner.de`)
+      services:
+        - name: argocd-server
+          namespace: argocd
+          port: 80
+      middlewares:
+        - name: traefik-traefik-sso@kubernetescrd
+  tls:
+    secretName: traefik.robert-wiesner.de
