@@ -21,14 +21,14 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: letsencrypt-stage
+  name: letsencrypt-stage-cloudDns
   namespace: cert-manager
 spec:
   acme:
     server: https://acme-v02.api.letsencrypt.org/directory
     email: hello@robert-wiesner.de
     privateKeySecretRef:
-      name: letsencrypt-stage
+      name: letsencrypt-stage-cloudDns
     solvers:
       # https://cert-manager.io/docs/configuration/acme/dns01/google needed for wildcard
       - dns01:
@@ -48,15 +48,96 @@ metadata:
 spec:
   secretName: robert-wiesner.de
   issuerRef:
-    name: letsencrypt-stage
+    name: letsencrypt-prod
     kind: ClusterIssuer
-  commonName: '*.robert-wiesner.de'
+  commonName: 'robert-wiesner.de'
   dnsNames:
     - robert-wiesner.de
-    - '*.robert-wiesner.de'
   secretTemplate:
     annotations:
       reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
       reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: "traefik,services,argocd"
       reflector.v1.k8s.emberstack.com/reflection-auto-enabled: "true"
       reflector.v1.k8s.emberstack.com/reflection-auto-namespaces: "traefik,services,argocd"
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: traefik.robert-wiesner.de
+  namespace: cert-manager
+spec:
+  secretName: traefik.robert-wiesner.de
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: traefik.robert-wiesner.de
+  dnsNames:
+    - traefik.robert-wiesner.de
+  secretTemplate:
+    annotations:
+      reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
+      reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: "traefik"
+      reflector.v1.k8s.emberstack.com/reflection-auto-enabled: "true"
+      reflector.v1.k8s.emberstack.com/reflection-auto-namespaces: "traefik"
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: argocd.robert-wiesner.de
+  namespace: cert-manager
+spec:
+  secretName: argocd.robert-wiesner.de
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: argocd.robert-wiesner.de
+  dnsNames:
+    - argocd.robert-wiesner.de
+  secretTemplate:
+    annotations:
+      reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
+      reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: "argocd,traefik"
+      reflector.v1.k8s.emberstack.com/reflection-auto-enabled: "true"
+      reflector.v1.k8s.emberstack.com/reflection-auto-namespaces: "argocd,traefik"
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: robert-wiesner.de
+  namespace: cert-manager
+spec:
+  secretName: robert-wiesner.de
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: robert-wiesner.de
+  dnsNames:
+    - robert-wiesner.de
+  secretTemplate:
+    annotations:
+      reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
+      reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: "traefik"
+      reflector.v1.k8s.emberstack.com/reflection-auto-enabled: "true"
+      reflector.v1.k8s.emberstack.com/reflection-auto-namespaces: "traefik"
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: graphql.robert-wiesner.de
+  namespace: cert-manager
+spec:
+  secretName: graphql.robert-wiesner.de
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: graphql.robert-wiesner.de
+  dnsNames:
+    - graphql.robert-wiesner.de
+  secretTemplate:
+    annotations:
+      reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
+      reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: "traefik,services"
+      reflector.v1.k8s.emberstack.com/reflection-auto-enabled: "true"
+      reflector.v1.k8s.emberstack.com/reflection-auto-namespaces: "traefik,services"
