@@ -8,7 +8,17 @@ spec:
     regex: (.*)
     replacement: https://github.com/rowi1de
     permanent: true
-
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-rick-roll
+  namespace: traefik
+spec:
+  redirectRegex:
+    regex: (.*)
+    replacement: https://youtu.be/dQw4w9WgXcQ
+    permanent: true
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware

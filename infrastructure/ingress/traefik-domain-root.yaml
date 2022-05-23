@@ -37,6 +37,6 @@ spec:
           kind: TraefikService
       middlewares:
         - name: traefik-redirect-to-https@kubernetescrd
-        - name: traefik-redirect-root@kubernetescrd
+        - name: traefik-redirect-rick-roll@kubernetescrd
   tls:
     secretName: robert-wiesner.de
