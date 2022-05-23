@@ -100,3 +100,24 @@ spec:
       reflector.v1.k8s.emberstack.com/reflection-auto-enabled: "true"
       reflector.v1.k8s.emberstack.com/reflection-auto-namespaces: "traefik"
 
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: graphql-wiesner.de
+  namespace: cert-manager
+spec:
+  secretName: graphql-wiesner.de
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: graphql-wiesner.de
+  dnsNames:
+    - graphql-wiesner.de
+  secretTemplate:
+    annotations:
+      reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
+      reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: "traefik,services"
+      reflector.v1.k8s.emberstack.com/reflection-auto-enabled: "true"
+      reflector.v1.k8s.emberstack.com/reflection-auto-namespaces: "traefik,services"
+
