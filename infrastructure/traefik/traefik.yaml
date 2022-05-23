@@ -24,8 +24,6 @@ spec:
             enabled: true
             allowCrossNamespace: true
         additionalArguments:
-        - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
-        - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
 
   destination:
     server: https://kubernetes.default.svc
