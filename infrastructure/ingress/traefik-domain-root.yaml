@@ -5,6 +5,7 @@ metadata:
   namespace: traefik
 spec:
   entryPoints:
+    - web
     - websecure
   routes:
     - match: Host(`robert-wiesner.de`)
@@ -13,6 +14,7 @@ spec:
         - name: noop@internal
           kind: TraefikService
       middlewares:
+        - name: traefik-redirect-to-https@kubernetescrd
         - name: traefik-redirect-root@kubernetescrd
   tls:
     secretName: robert-wiesner.de
