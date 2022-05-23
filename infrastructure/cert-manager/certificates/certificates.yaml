@@ -48,7 +48,7 @@ metadata:
 spec:
   secretName: robert-wiesner.de
   issuerRef:
-    name: letsencrypt-prod
+    name: letsencrypt-stage
     kind: ClusterIssuer
   commonName: '*.robert-wiesner.de'
   dnsNames:
