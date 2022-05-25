@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: graphql-reactive (OCI)
+  name: graphql-reactive-oci
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io # cascade on delete
@@ -27,7 +27,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: graphql-reactive (Chart Releaser)
+  name: graphql-reactive-chart-releaser
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io # cascade on delete
