@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: graphql-reactive
+  name: graphql-reactive (OCI)
   namespace: argocd
   finalizers:
     - resources-finalizer.argocd.argoproj.io # cascade on delete
@@ -13,6 +13,34 @@ spec:
     # https://argo-cd.readthedocs.io/en/stable/user-guide/tracking_strategies/
     targetRevision: '>=0.0.0'
     chart: graphql-reactive
+  project: services
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: services
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: graphql-reactive (Chart Releaser)
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io # cascade on delete
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  source:
+    repoURL: https://rowi1de.github.io/graphql-reactive/k8s/helm
+    # https://argo-cd.readthedocs.io/en/stable/user-guide/tracking_strategies/
+    targetRevision: '>=0.0.0'
+    chart: graphql-reactive
+    helm:
+      releaseName: graphql-reactive
   project: services
   destination:
     server: https://kubernetes.default.svc

@@ -14,4 +14,5 @@ spec:
       server: '*'
   sourceRepos:
     -  https://github.com/rowi1de/argocd
-    -  ghcr.io/rowi1de/graphql-reactive
+    -  ghcr.io/rowi1de/graphql-reactive # OCI
+    -  https://rowi1de.github.io/graphql-reactive/k8s/helm # GitHub Pages / Chart Releaser
