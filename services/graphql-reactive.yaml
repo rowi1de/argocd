@@ -10,7 +10,8 @@ metadata:
 spec:
   source:
     repoURL: ghcr.io/rowi1de/graphql-reactive
-    targetRevision: 0.0.15
+    # https://argo-cd.readthedocs.io/en/stable/user-guide/tracking_strategies/
+    targetRevision: *
     chart: graphql-reactive
   project: services
   destination:
