@@ -1,7 +1,13 @@
 name: Update Helm Version based on Release Trigger
 on: 
- release:
-  types: [published]
+ workflow_call:
+     inputs:
+       repo:
+         required: true
+         type: string
+       semVer:
+         required: true
+         type: string
   
 
 jobs:
