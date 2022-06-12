@@ -17,6 +17,9 @@ jobs:
         repo: graphql-reactive
         excludes:  pre-release
         
+    - name: Checkout
+      uses: actions/checkout@v
+        
     - name: Helm Upgrade OCI Image Tag
       uses: endaft/action-yamler@v1.0.9
       with:
