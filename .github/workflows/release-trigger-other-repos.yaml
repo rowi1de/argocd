@@ -18,7 +18,7 @@ jobs:
         excludes:  pre-release
         
     - name: Checkout
-      uses: actions/checkout@v
+      uses: actions/checkout@v2
         
     - name: Helm Upgrade OCI Image Tag
       uses: endaft/action-yamler@v1.0.9
