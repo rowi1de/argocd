@@ -35,7 +35,6 @@ jobs:
         base: main
         reviewers: rowi1de
         delete-branch: true
-        title: "[DEPLOY] ${{ steps.latest-release.outputs.release }}"
-        
-
-  
+        title: "[DEPLOY] graphql-reactive ${{ steps.latest-release.outputs.release }}"
+        labels: deploy
+ 
