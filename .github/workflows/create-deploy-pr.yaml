@@ -31,10 +31,10 @@ jobs:
       uses: peter-evans/create-pull-request@v4
       with:
         token: ${{ secrets.REPO_TOKEN }}
-        branch: "deploy-graphql-reactive-${{ steps.latest-release.outputs.release }}"
+        branch: "deploy-${{ github.event.client_payload.repository }}-${{ steps.latest-release.outputs.release }}"
         base: main
         reviewers: ${{ github.event.client_payload.actor }}
         delete-branch: true
-        title: "[DEPLOY] graphql-reactive ${{ steps.latest-release.outputs.release }} by ${{ github.event.client_payload.actor }}"
+        title: "[DEPLOY] ${{ github.event.client_payload.repository }} ${{ steps.latest-release.outputs.release }} by ${{ github.event.client_payload.actor }}"
         labels: deploy
  
