@@ -24,6 +24,19 @@ jobs:
       uses: endaft/action-yamler@v1.0.9
       with:
          file: ./services/graphql-reactive.yaml
-         path: spec.targetRevision 
+         path: spec.source.targetRevision 
          set:  ${{ steps.latest-release.outputs.release }}
+         
+    - id: create-pull-request-action
+      name: Create Pull Request
+      uses: quangvo09/create-pull-request-action@v1.0.1
+      with:
+        # GitHub token
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch_prefix: deploy
+        # base branch for create pr
+        base_branch: main
+        # request reviewers
+        reviewers: rowi1de
+
   
