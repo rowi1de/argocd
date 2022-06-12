@@ -1,7 +1,8 @@
 name: Update Helm Version based on Release Trigger
 on: 
  release:
- pull_request: 
+  types: [published]
+  
 
 jobs:
   update-helm-release:
