@@ -4,14 +4,13 @@ metadata:
   name: graphql-reactive-oci
   namespace: argocd
   finalizers:
-    - resources-finalizer.argocd.argoproj.io # cascade on delete
+    - resources-finalizer.argocd.argoproj.io
   annotations:
     argocd.argoproj.io/sync-wave: "1"
 spec:
   source:
     repoURL: ghcr.io/rowi1de/graphql-reactive
-    # https://argo-cd.readthedocs.io/en/stable/user-guide/tracking_strategies/
-    targetRevision: '>=0.0.0'
+    targetRevision: 0.1.8
     chart: graphql-reactive
   project: services
   destination:
