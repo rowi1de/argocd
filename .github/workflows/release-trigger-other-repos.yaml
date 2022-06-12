@@ -29,14 +29,12 @@ jobs:
          
     - id: create-pull-request-action
       name: Create Pull Request
-      uses: quangvo09/create-pull-request-action@v1.0.1
+      uses: peter-evans/create-pull-request@v4
       with:
-        # GitHub token
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch_prefix: main
-        # base branch for create pr
-        base_branch: main
-        # request reviewers
+        token: ${{ secrets.GITHUB_TOKEN }}
+        branch: deploy
+        base: main
         reviewers: rowi1de
+        
 
   
