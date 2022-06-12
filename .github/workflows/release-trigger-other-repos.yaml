@@ -33,7 +33,7 @@ jobs:
       with:
         # GitHub token
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch_prefix: deploy
+        branch_prefix: main
         # base branch for create pr
         base_branch: main
         # request reviewers
