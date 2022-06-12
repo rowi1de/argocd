@@ -12,20 +12,13 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
         
-    - name: Helm Upgrade App OCI Image Tag
+    - name: Helm Upgrade OCI Image Tag
       uses: endaft/action-yamler@v1.0.9
       with:
-         file: ${{ github.event.client_payload.service_manifest }}
+         file: ${{ github.event.client_payload.manifest }}
          path: spec.source.targetRevision 
          set: ${{ github.event.client_payload.release_tag }}
-        
-    - name: Helm Upgrade Ingress OCI Image Tag
-      uses: endaft/action-yamler@v1.0.9
-      with:
-         file: ${{ github.event.client_payload.ingress_manifest }}
-         path: spec.source.targetRevision 
-         set: ${{ github.event.client_payload.release_tag }}
-         
+
     - name: Get Release
       id: get-release
       uses: cardinalby/git-get-release-action@v1
