@@ -13,7 +13,6 @@ jobs:
       uses: pozetroninc/github-action-get-latest-release@v0.5.0
       with:
         owner: rowi1de
-        # The repository name
         repo: graphql-reactive
         excludes:  pre-release
         
@@ -35,6 +34,8 @@ jobs:
         branch: deploy
         base: main
         reviewers: rowi1de
+        delete-branch: true
+        title: "[DEPLOY] ${{ steps.latest-release.outputs.release }}"
         
 
   
