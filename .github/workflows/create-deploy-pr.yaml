@@ -31,16 +31,19 @@ jobs:
     - name: Download Build Info
       uses: aochmann/actions-download-artifact@1.0.4
       with:
-       github_token: ${{ secrets.REPO_TOKEN }}
+       github_token: ${{ secrets.REEV_SHARED_TOKEN }}
        repo: ${{ github.event.client_payload.repository }}
        name: ${{ github.event.client_payload.release_tag }}-github.actor
        
-    - name: Read file
+    - name: Read Build Info
       id: read-author
       uses: juliangruber/read-file-action@v1.1.4
       with:
         path:  ${{ github.event.client_payload.release_tag }}-github.actor
         trim: true
+    
+    - name: Delete Build Info
+      run: rm -f  ${{ github.event.client_payload.release_tag }}-github.actor
          
     - id: create-pull-request-action
       name: Create Pull Request 
