@@ -1,39 +1,73 @@
-name: Create Deployment PR
+name: Create Deployment Pull Request
 on: 
  repository_dispatch:
-  
+  types: [release-created]
 
 jobs:
-  update-helm-release:
+  create-deployment-pull-request:
+    name: Create Deployment Pull Request
     runs-on: ubuntu-latest
     steps:
-    
-    - name: Get Latest Release
-      id: latest-release
-      uses: pozetroninc/github-action-get-latest-release@v0.5.0
-      with:
-        repository: ${{ github.event.client_payload.repository }}
-        excludes:  pre-release
         
     - name: Checkout
       uses: actions/checkout@v2
         
-    - name: Helm Upgrade OCI Image Tag
+    - name: Helm Upgrade App OCI Image Tag
       uses: endaft/action-yamler@v1.0.9
       with:
-         file: ./services/graphql-reactive.yaml
+         file: ${{ github.event.client_payload.service_manifest }}
          path: spec.source.targetRevision 
-         set:  ${{ steps.latest-release.outputs.release }}
+         set: ${{ github.event.client_payload.release_tag }}
+        
+    - name: Helm Upgrade Ingress OCI Image Tag
+      uses: endaft/action-yamler@v1.0.9
+      with:
+         file: ${{ github.event.client_payload.ingress_manifest }}
+         path: spec.source.targetRevision 
+         set: ${{ github.event.client_payload.release_tag }}
+         
+    - name: Get Release
+      id: get-release
+      uses: cardinalby/git-get-release-action@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.REPO_TOKEN }}
+      with:
+        tag: ${{ github.event.client_payload.release_tag }}
+        repo: ${{ github.event.client_payload.repository }}
+        
+    - name: Download Build Info
+      uses: aochmann/actions-download-artifact@1.0.4
+      with:
+       github_token: ${{ secrets.REPO_TOKEN }}
+       repo: ${{ github.event.client_payload.repository }}
+       name: ${{ github.event.client_payload.release_tag }}-github.actor
+       
+    - name: Read file
+      id: read-author
+      uses: juliangruber/read-file-action@v1.1.4
+      with:
+        path:  ${{ github.event.client_payload.release_tag }}-github.actor
+        trim: true
          
     - id: create-pull-request-action
-      name: Create Pull Request
+      name: Create Pull Request 
       uses: peter-evans/create-pull-request@v4
       with:
-        token: ${{ secrets.REPO_TOKEN }}
-        branch: "deploy-${{ github.event.client_payload.repository }}-${{ steps.latest-release.outputs.release }}"
-        base: main
-        reviewers: ${{ github.event.client_payload.actor }}
-        delete-branch: true
-        title: "[DEPLOY] ${{ github.event.client_payload.repository }} ${{ steps.latest-release.outputs.release }} by ${{ github.event.client_payload.actor }}"
-        labels: deploy
+       token: ${{ secrets.REPO_TOKEN }}
+       branch: "deploy-${{ github.event.client_payload.repository }}-${{ github.event.client_payload.release_tag }}"
+       base: main
+       reviewers: ${{ steps.read-author.outputs.content }}
+       delete-branch: true
+       title: "[DEPLOY] ${{ github.event.client_payload.repository }} ${{ github.event.client_payload.release_tag }} by ${{ github.event.client_payload.author }}"
+       labels: deploy
+       body: |
+        - Commit https://github.com/${{ github.event.client_payload.repository }}/commit/${{ github.event.client_payload.sha }}
+        - Message: ${{ github.event.client_payload.message }}
+        - Author: @${{ steps.read-author.outputs.content }} -- ${{ github.event.client_payload.author }}
+        - Actor: @${{ github.event.client_payload.actor }}
+        - Release https://github.com/${{ github.event.client_payload.repository }}/releases/tag/${{ github.event.client_payload.release_tag }}
+        ---
+        ${{ steps.get-release.outputs.body }}
+         
+
  
