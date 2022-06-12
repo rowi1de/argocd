@@ -10,7 +10,7 @@ metadata:
 spec:
   source:
     repoURL: ghcr.io/rowi1de/graphql-reactive
-    targetRevision: 0.1.7
+    targetRevision: 0.1.9
     chart: graphql-reactive
   project: services
   destination:
