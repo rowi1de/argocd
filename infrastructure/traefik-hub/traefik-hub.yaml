@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: traefik-hub
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io # cascade on delete
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  project: traefik-hub
+  source:
+    repoURL: 'https://helm.traefik.io/hub'
+    chart: hub-agent
+    targetRevision:  1.0.0
+    helm:
+      values: |
+        token: "f3d70ec0-6efa-47b2-942f-e3cecbc6debb"
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: traefik-hub
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
