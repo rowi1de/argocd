@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: k8s-local-storage
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  source:
+    repoURL: ghcr.io/rowi1de/k8s-local-storage
+    targetRevision: 0.1.0
+    chart: k8s-local-storage
+  project: services
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: services
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
