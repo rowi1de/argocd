@@ -15,5 +15,5 @@ spec:
   sourceRepos:
     -  https://github.com/rowi1de/argocd
     -  ghcr.io/rowi1de/graphql-reactive # OCI
-    -  ghcr.io/rowi1de/k8s-local-storage/ # OCI
+    -  ghcr.io/rowi1de/k8s-local-storage # OCI
     -  https://rowi1de.github.io/graphql-reactive/k8s/helm # GitHub Pages / Chart Releaser
