@@ -10,7 +10,7 @@ metadata:
 spec:
   source:
     repoURL: ghcr.io/rowi1de/k8s-local-storage
-    targetRevision: 0.0.1
+    targetRevision: 0.0.7
     chart: k8s-local-storage
   project: services
   destination:
